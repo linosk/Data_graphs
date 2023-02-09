@@ -1,24 +1,49 @@
 import pandas as pd
+import numpy as np
 
-df = pd.read_csv("Files/Noise/13.09.2022-12:52:35.csv", skiprows=28, encoding_errors='ignore')
-#df = pd.read_csv("Files/Noise/13.09.2022-12:52:35.csv")
+gain26 = 14
+gain38A = 13.5
+gain38B = 14.5
 
-#df.drop()
-#
+df = pd.read_csv("Files/26GHz/13.09.2022-10:48:03.csv", skiprows=28, encoding_errors='ignore')
+#df = pd.read_csv("Files/26GHz/13.09.2022-10:49:31.csv", skiprows=28, encoding_errors='ignore')
+
+cdf = df
+
+for x in range(3,401,4):
+    cdf = cdf.drop([x,x+1])
+
+cdf=cdf.reset_index()
+cdf=cdf.drop([0])
+cdf=cdf.drop(['index','Unnamed: 0','Unnamed: 4','t [s] U f [Hz]:'],axis=1)
+
+ndf=cdf.drop(['Unnamed: 1','Unnamed: 2','Unnamed: 3'],axis=1)
+
+#print(ndf)
 #print(df)
 
-#df.drop(columns=df.columns[0], axis=1, inplace=True)
-#df.drop([3,4], axis=0, inplace=True)
+row, col = ndf.shape
 
-#print(df['Unnamed: 2'].to_string(index=False))
-#print(df['Unnamed: 3'].to_string(index=False))
-#print(df['Unnamed: 4'].to_string(index=False))
-#print(df['t [s] U f [Hz]:'].to_string(index=False))
-print(df.iloc[0])
-print(df.iloc[4])
+values = ndf.columns
+values = values.to_numpy()
+#print(type(values[0]))
+
+#col = len(values)
+#print(length)
+
+for i in range(col):
+    values[i]=float(values[i])
+    #print(values[i])
+    #print(type(values[i]))
+
+ndf=ndf.to_numpy()
+#print(ndf)
+
+for i in range(row):
+    for j in range(col):
+        ndf[i,j]=float(ndf[i,j])
+        ndf[i,j]=-ndf[i,j]+gain26+gain38A
+
+print(ndf)
+
 print(df)
-
-#https://www.youtube.com/watch?v=qxpKCBV60U4&ab_channel=M%C4%B1sraTurp
-
-#python how to prepare data https://www.youtube.com/results?search_query=python+how+to+prepare+data
-#python how to pandas, mathploib(?) etc.
