@@ -1,5 +1,6 @@
 import pandas as pd
 import functions as fn
+import matplotlib.pyplot as plt
 import numpy as np
 
 gain26 = 14
@@ -7,11 +8,17 @@ gain38A = 13.5
 gain38B = 14.5
 
 #Read from csv file and skip first 28 liness
-df = pd.read_csv("Files/26GHz/13.09.2022-10:48:03.csv", skiprows=28, encoding_errors='ignore')
+#df = pd.read_csv("Files/26GHz/13.09.2022-10:48:03.csv", skiprows=28, encoding_errors='ignore')
+#df = pd.read_csv("Files/26GHz/13.09.2022-10:51:35.csv", skiprows=28, encoding_errors='ignore')
+#df = pd.read_csv("Files/26GHz/13.09.2022-10:56:19.csv", skiprows=28, encoding_errors='ignore')
 #df = pd.read_csv("Files/26GHz/13.09.2022-11:44:59.csv", skiprows=28, encoding_errors='ignore')
+df = pd.read_csv("Files/26GHz/13.09.2022-11:16:17.csv", skiprows=28, encoding_errors='ignore')
 
 #Copy dataframe contents
 cdf = df
+
+#Get type of scenario
+scenario = df['Unnamed: 4'].values[1]
 
 #Delete rows S32 and S42
 for x in range(3,401,4):
@@ -38,11 +45,22 @@ for i in range(col):
 
 #Change dataframe to 2d array, and change strings to floats
 ndf=ndf.to_numpy()
-print(ndf)
 for i in range(row):
     for j in range(col):
         ndf[i,j]=float(ndf[i,j])
-        #ndf[i,j]=-ndf[i,j]
         ndf[i,j]=fn.calculate_path_loss(ndf[i,j],gain26,gain26)
 
-#VERIFY IF IT IS CORRECT
+#print(ndf[:1])
+#print(ndf)
+measurement = 100
+plt.plot(values,ndf[measurement])
+plt.title(scenario+"---"+str(measurement))
+
+if(scenario[5]=='F'):
+    plt.xlabel("Frequency [GHz]")
+else:
+    plt.xlabel("Time [s]")
+plt.ylabel("Path loss [dB]")
+###plt.plot([1, 2, 3, 4], [1, 4, 9, 16])
+##print(len(buff))
+plt.show()
