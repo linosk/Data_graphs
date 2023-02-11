@@ -1,7 +1,6 @@
 import pandas as pd
 import functions as fn
 import matplotlib.pyplot as plt
-import numpy as np
 
 gain26 = 14
 gain38A = 13.5
@@ -54,13 +53,16 @@ for i in range(row):
 #print(ndf)
 measurement = 100
 plt.plot(values,ndf[measurement])
-plt.title(scenario+"---"+str(measurement))
+#plt.title(scenario+"---"+str(measurement))
+plt.title(fn.find_title(scenario))
 
 if(scenario[5]=='F'):
-    plt.xlabel("Frequency [GHz]")
+    plt.xlabel("Częstotliwość [GHz]")
 else:
-    plt.xlabel("Time [s]")
-plt.ylabel("Path loss [dB]")
+    plt.xlabel("Czas [s]")
+plt.ylabel("Tłumienie propagacyjne [dB]")
 ###plt.plot([1, 2, 3, 4], [1, 4, 9, 16])
 ##print(len(buff))
-plt.show()
+#plt.show()
+
+plt.savefig(scenario+'.png', dpi=500)
