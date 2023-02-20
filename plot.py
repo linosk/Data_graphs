@@ -8,10 +8,9 @@ gain38B = 14.5
 
 #Read from csv file and skip first 28 liness
 #df = pd.read_csv("Files/26GHz/13.09.2022-10:48:03.csv", skiprows=28, encoding_errors='ignore')
-#df = pd.read_csv("Files/26GHz/13.09.2022-10:51:35.csv", skiprows=28, encoding_errors='ignore')
-#df = pd.read_csv("Files/26GHz/13.09.2022-10:56:19.csv", skiprows=28, encoding_errors='ignore')
-#df = pd.read_csv("Files/26GHz/13.09.2022-11:44:59.csv", skiprows=28, encoding_errors='ignore')
-df = pd.read_csv("Files/26GHz/13.09.2022-11:16:17.csv", skiprows=28, encoding_errors='ignore')
+#df = pd.read_csv("Files/26GHz/13.09.2022-10:49:31.csv", skiprows=28, encoding_errors='ignore')
+#df = pd.read_csv("Files/38GHz/13.09.2022-12:48:27.csv", skiprows=28, encoding_errors='ignore')
+df = pd.read_csv("Files/38GHz/13.09.2022-12:49:00.csv", skiprows=28, encoding_errors='ignore')
 
 #Copy dataframe contents
 cdf = df
@@ -51,10 +50,14 @@ for i in range(row):
 
 #print(ndf[:1])
 #print(ndf)
-measurement = 100
+#print(cdf)
+
+#measurement = 0
+measurement = 198
 plt.plot(values,ndf[measurement])
 #plt.title(scenario+"---"+str(measurement))
-plt.title(fn.find_title(scenario))
+#plt.title(fn.find_title(scenario))
+plt.title(scenario+"V-V")
 
 if(scenario[5]=='F'):
     plt.xlabel("Częstotliwość [GHz]")
@@ -65,4 +68,26 @@ plt.ylabel("Tłumienie propagacyjne [dB]")
 ##print(len(buff))
 #plt.show()
 
-plt.savefig(scenario+'.png', dpi=500)
+#plt.savefig(scenario+'.png', dpi=500)
+plt.savefig(scenario+"V-V"+'.jpg')
+plt.close()
+
+#measurement = 1
+measurement = 199
+plt.plot(values,ndf[measurement])
+#plt.title(scenario+"---"+str(measurement))
+#plt.title(fn.find_title(scenario))
+plt.title(scenario+"V-H")
+
+if(scenario[5]=='F'):
+    plt.xlabel("Częstotliwość [GHz]")
+else:
+    plt.xlabel("Czas [s]")
+plt.ylabel("Tłumienie propagacyjne [dB]")
+###plt.plot([1, 2, 3, 4], [1, 4, 9, 16])
+##print(len(buff))
+#plt.show()
+
+#plt.savefig(scenario+'.png', dpi=500)
+plt.savefig(scenario+"V-H"+'.jpg')
+plt.close()
