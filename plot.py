@@ -9,8 +9,8 @@ gain38V = 13
 gain38H = 15
 
 #Read from csv file and skip first 28 liness
-#df = pd.read_csv("Files/26GHz/13.09.2022-10:49:31.csv", skiprows=28, encoding_errors='ignore')
-df = pd.read_csv("Files/38GHz/13.09.2022-12:03:25.csv", skiprows=28, encoding_errors='ignore')
+df = pd.read_csv("Files/26GHz/13.09.2022-10:49:31.csv", skiprows=28, encoding_errors='ignore')
+#df = pd.read_csv("Files/38GHz/13.09.2022-12:03:25.csv", skiprows=28, encoding_errors='ignore')
 
 #Copy dataframe contents
 cdf = df
@@ -63,34 +63,35 @@ for i in range(row):
 
 new = int(row/2)
 
-S31freq = [0] * col
-S41freq = [0] * col
-S31time = [0] * new
-S41time = [0] * new
+S31freqMEAN = [0] * col
+S41freqMEAN = [0] * col
+S31timeMEAN = [0] * new
+S41timeMEAN = [0] * new
 
 #Calculate mean for i-th column for the S31 scenario in relative to frequency
 for i in range(col):
-    S31freq[i] = np.mean((ndf[:,i])[0::2])
+    S31freqMEAN[i] = np.mean((ndf[:,i])[0::2])
 
 #Calculate mean for i-th column for the S41 scenario in relative to frequency
 for i in range(col):
-    S41freq[i] = np.mean((ndf[:,i])[1::2])
+    S41freqMEAN[i] = np.mean((ndf[:,i])[1::2])
 
 #Calculate mean for i-th row for the S31 scenario in relative to time
 for i in range(new):
-    S31time[i] = np.mean((ndf[i*2,:]))
+    S31timeMEAN[i] = np.mean((ndf[i*2,:]))
 
 #Calculate mean for i-th row for the S41 scenario in relative to time
 for i in range(new):
-    S41time[i] = np.mean((ndf[i*2+1,:]))
+    S41timeMEAN[i] = np.mean((ndf[i*2+1,:]))
 
 width = 12
 height = 5
 
 freq = freq/1e10
-
+time = time/1000
+"""
 plt.figure(figsize=(width,height))
-plt.plot(freq,S31freq)
+plt.plot(freq,S31freqMEAN)
 plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.2f}'))
 plt.title("1."+scenario+"Vf")
 plt.xlabel("Częstotliwość [GHz]")
@@ -98,9 +99,8 @@ plt.ylabel("Tłumienie propagacyjne [dB]")
 plt.savefig("1."+scenario+"Vf"+'.jpg')
 plt.close()
 
-
 plt.figure(figsize=(width,height))
-plt.plot(freq,S41freq)
+plt.plot(freq,S41freqMEAN)
 plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.2f}'))
 plt.title("2."+scenario+"Hf")
 plt.xlabel("Częstotliwość [GHz]")
@@ -108,10 +108,8 @@ plt.ylabel("Tłumienie propagacyjne [dB]")
 plt.savefig("2."+scenario+"Hf"+'.jpg')
 plt.close()
 
-time = time/1000
-
 plt.figure(figsize=(width,height))
-plt.plot(time,S31time)
+plt.plot(time,S31timeMEAN)
 plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.2f}'))
 plt.title("3."+scenario+"Vt")
 plt.xlabel("Czas pomiaru [s]")
@@ -120,7 +118,7 @@ plt.savefig("3."+scenario+"Vt"+'.jpg')
 plt.close()
 
 plt.figure(figsize=(width,height))
-plt.plot(time,S41time)
+plt.plot(time,S41timeMEAN)
 plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.2f}'))
 plt.title("4."+scenario+"Ht")
 plt.xlabel("Czas pomiaru [s]")
@@ -130,12 +128,12 @@ plt.close()
 
 #Lph - LpV
 #from math import log10
-LdiffF = np.array(S41freq) - np.array(S31freq)
+LdiffF = np.array(S41freqMEAN) - np.array(S31freqMEAN)
 #LdiffF = fn.find_lin_value(np.array(S41freq)) - fn.find_lin_value(np.array(S31freq))
 #for i in range(len(LdiffF)):
 #    LdiffF[i] = 10*log10(LdiffF[i])
 
-LdiffT = np.array(S41time) - np.array(S31time)
+LdiffT = np.array(S41timeMEAN) - np.array(S31timeMEAN)
 #LdiffT = fn.find_lin_value(np.array(S41time)) - fn.find_lin_value(np.array(S31time))
 #for i in range(len(LdiffT)):
 #    LdiffT[i] = 10*log10(LdiffT[i])
@@ -157,14 +155,222 @@ plt.xlabel("Czas pomiaru [s]")
 plt.ylabel("Rożnica tłumień [dB]")
 plt.savefig("6."+scenario+"tDiff"+'.jpg')
 plt.close()
+"""
+#Var
+"""
+S31freqVAR = [0] * col
+S41freqVAR = [0] * col
+S31timeVAR = [0] * new
+S41timeVAR = [0] * new
+
+#Calculate var for i-th column for the S31 scenario in relative to frequency
+for i in range(col):
+    S31freqVAR[i] = np.var((ndf[:,i])[0::2])
+
+#Calculate var for i-th column for the S41 scenario in relative to frequency
+for i in range(col):
+    S41freqVAR[i] = np.var((ndf[:,i])[1::2])
+
+#Calculate var for i-th row for the S31 scenario in relative to time
+for i in range(new):
+    S31timeVAR[i] = np.var((ndf[i*2,:]))
+
+#Calculate var for i-th row for the S41 scenario in relative to time
+for i in range(new):
+    S41timeVAR[i] = np.var((ndf[i*2+1,:]))
+
+x=1000
+S31freqVAR = np.array(S31freqVAR)*x
+S41freqVAR = np.array(S41freqVAR)*x
+S31timeVAR = np.array(S31timeVAR)*x
+S41timeVAR = np.array(S41timeVAR)*x
+
+plt.figure(figsize=(width,height))
+plt.plot(freq,S31freqVAR)
+plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.2f}'))
+plt.title("1."+scenario+"Vf")
+plt.xlabel("Częstotliwość [GHz]")
+plt.ylabel("Tłumienie propagacyjne [dB]")
+plt.savefig("1."+scenario+"Vf"+'.jpg')
+plt.close()
+
+plt.figure(figsize=(width,height))
+plt.plot(freq,S41freqVAR)
+plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.2f}'))
+plt.title("2."+scenario+"Hf")
+plt.xlabel("Częstotliwość [GHz]")
+plt.ylabel("Tłumienie propagacyjne [dB]")
+plt.savefig("2."+scenario+"Hf"+'.jpg')
+plt.close()
+
+plt.figure(figsize=(width,height))
+plt.plot(time,S31timeVAR)
+plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.2f}'))
+plt.title("3."+scenario+"Vt")
+plt.xlabel("Czas pomiaru [s]")
+plt.ylabel("Tłumienie propagacyjne [dB]")
+plt.savefig("3."+scenario+"Vt"+'.jpg')
+plt.close()
+
+plt.figure(figsize=(width,height))
+plt.plot(time,S41timeVAR)
+plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.2f}'))
+plt.title("4."+scenario+"Ht")
+plt.xlabel("Czas pomiaru [s]")
+plt.ylabel("Tłumienie propagacyjne [dB]")
+plt.savefig("4."+scenario+"Ht"+'.jpg')
+plt.close()
+"""
+#Std dev
+"""
+S31freqSTD = [0] * col
+S41freqSTD = [0] * col
+S31timeSTD = [0] * new
+S41timeSTD = [0] * new
+
+#Calculate var for i-th column for the S31 scenario in relative to frequency
+for i in range(col):
+    S31freqSTD[i] = np.std((ndf[:,i])[0::2])
+
+#Calculate var for i-th column for the S41 scenario in relative to frequency
+for i in range(col):
+    S41freqSTD[i] = np.std((ndf[:,i])[1::2])
+
+#Calculate var for i-th row for the S31 scenario in relative to time
+for i in range(new):
+    S31timeSTD[i] = np.std((ndf[i*2,:]))
+
+#Calculate var for i-th row for the S41 scenario in relative to time
+for i in range(new):
+    S41timeSTD[i] = np.std((ndf[i*2+1,:]))
+
+x=1000
+S31freqSTD = np.array(S31freqSTD)*x
+S41freqSTD = np.array(S41freqSTD)*x
+S31timeSTD = np.array(S31timeSTD)*x
+S41timeSTD = np.array(S41timeSTD)*x
+
+plt.figure(figsize=(width,height))
+plt.plot(freq,S31freqSTD)
+plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.2f}'))
+plt.title("1."+scenario+"Vf")
+plt.xlabel("Częstotliwość [GHz]")
+plt.ylabel("Tłumienie propagacyjne [dB]")
+plt.savefig("1."+scenario+"Vf"+'.jpg')
+plt.close()
+
+plt.figure(figsize=(width,height))
+plt.plot(freq,S41freqSTD)
+plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.2f}'))
+plt.title("2."+scenario+"Hf")
+plt.xlabel("Częstotliwość [GHz]")
+plt.ylabel("Tłumienie propagacyjne [dB]")
+plt.savefig("2."+scenario+"Hf"+'.jpg')
+plt.close()
+
+plt.figure(figsize=(width,height))
+plt.plot(time,S31timeSTD)
+plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.2f}'))
+plt.title("3."+scenario+"Vt")
+plt.xlabel("Czas pomiaru [s]")
+plt.ylabel("Tłumienie propagacyjne [dB]")
+plt.savefig("3."+scenario+"Vt"+'.jpg')
+plt.close()
+
+plt.figure(figsize=(width,height))
+plt.plot(time,S41timeSTD)
+plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.2f}'))
+plt.title("4."+scenario+"Ht")
+plt.xlabel("Czas pomiaru [s]")
+plt.ylabel("Tłumienie propagacyjne [dB]")
+plt.savefig("4."+scenario+"Ht"+'.jpg')
+plt.close()
+"""
+#Corr
+
+S31freqCORR = [0] * col
+S41freqCORR = [0] * col
+S31timeCORR = [0] * new
+S41timeCORR = [0] * new
+
+#Calculate var for i-th column for the S31 scenario in relative to frequency
+for i in range(col):
+    S31freqCORR[i] = np.corrcoef((ndf[:,i])[0::2])
+
+#Calculate var for i-th column for the S41 scenario in relative to frequency
+for i in range(col):
+    S41freqCORR[i] = np.corrcoef((ndf[:,i])[1::2])
+
+#Calculate var for i-th row for the S31 scenario in relative to time
+for i in range(new):
+    S31timeCORR[i] = np.corrcoef((ndf[i*2,:]))
+
+#Calculate var for i-th row for the S41 scenario in relative to time
+for i in range(new):
+    S41timeCORR[i] = np.corrcoef((ndf[i*2+1,:]))
+
+#x=1
+#S31freqCORR = np.array(S31freqCORR)*x
+#S41freqCORR = np.array(S41freqCORR)*x
+#S31timeCORR = np.array(S31timeCORR)*x
+#S41timeCORR = np.array(S41timeCORR)*x
+
+plt.figure(figsize=(width,height))
+plt.plot(freq,S31freqCORR)
+plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.2f}'))
+plt.title("1."+scenario+"Vf")
+plt.xlabel("Częstotliwość [GHz]")
+plt.ylabel("Tłumienie propagacyjne [dB]")
+plt.savefig("1."+scenario+"Vf"+'.jpg')
+plt.close()
+
+plt.figure(figsize=(width,height))
+plt.plot(freq,S41freqCORR)
+plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.2f}'))
+plt.title("2."+scenario+"Hf")
+plt.xlabel("Częstotliwość [GHz]")
+plt.ylabel("Tłumienie propagacyjne [dB]")
+plt.savefig("2."+scenario+"Hf"+'.jpg')
+plt.close()
+
+plt.figure(figsize=(width,height))
+plt.plot(time,S31timeCORR)
+plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.2f}'))
+plt.title("3."+scenario+"Vt")
+plt.xlabel("Czas pomiaru [s]")
+plt.ylabel("Tłumienie propagacyjne [dB]")
+plt.savefig("3."+scenario+"Vt"+'.jpg')
+plt.close()
+
+plt.figure(figsize=(width,height))
+plt.plot(time,S41timeCORR)
+plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.2f}'))
+plt.title("4."+scenario+"Ht")
+plt.xlabel("Czas pomiaru [s]")
+plt.ylabel("Tłumienie propagacyjne [dB]")
+plt.savefig("4."+scenario+"Ht"+'.jpg')
+plt.close()
+
+#SCATTER PLOT !!!!!!!!!!!!
+#SCATTER PLOT !!!!!!!!!!!!
+#SCATTER PLOT !!!!!!!!!!!!
+#SCATTER PLOT !!!!!!!!!!!!
+#SCATTER PLOT !!!!!!!!!!!!
+#SCATTER PLOT !!!!!!!!!!!!
+#SCATTER PLOT !!!!!!!!!!!!
+#SCATTER PLOT !!!!!!!!!!!!
+#SCATTER PLOT !!!!!!!!!!!!
+#SCATTER PLOT !!!!!!!!!!!!
+#SCATTER PLOT !!!!!!!!!!!!
+#SCATTER PLOT !!!!!!!!!!!!
 
 #Correlation
 
-CorrF = np.corrcoef(S31freq,S41freq)
-CorrT = np.corrcoef(S31time,S41time)
-
-print(len(CorrF))
-print(len(CorrT))
+#CorrF = np.corrcoef(S31freq,S41freq)
+#CorrT = np.corrcoef(S31time,S41time)
+#
+#print(len(CorrF))
+#print(len(CorrT))
 
 #plt.figure(figsize=(width,height))
 #plt.plot(freq,CorrF)
