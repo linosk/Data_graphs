@@ -43,9 +43,6 @@ for file in files:
     minute=file[18:20]
     second=file[20:22]
     new_name = day+'.'+month+'.'+year+'-'+hour+':'+minute+':'+second+'.csv'
-    #Trying to see whether not changing the data files into .csv files at this point will resolve the issue occuring later
-    #new_name = day+'.'+month+'.'+year+'-'+hour+':'+minute+':'+second+'.txt'
-    #new_name = day+'.'+month+'.'+year+'-'+hour+':'+minute+':'+second+'.xlsx'
     os.rename(file,new_name)
 
 #Get list of files's names
