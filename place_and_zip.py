@@ -1,5 +1,6 @@
 import os
 import shutil
+import zipfile
 
 target_dir = os.getcwd() + "/Plots"
 
@@ -17,30 +18,23 @@ os.mkdir(dir_38GHz)
 
 list_of_plots = []
 
-print(type(list_of_plots))
-
 list_of_files = os.listdir()
 
 for file in list_of_files:
     if file.endswith(".jpg"):
         list_of_plots.append(str(file))
+    if file.endswith(".txt"):
+        shutil.move(os.getcwd()+"/"+file,target_dir+"/"+file)
 
 for i in range(len(list_of_plots)):
-    #print(list_of_plots[i])
-    if (list_of_plots[i])[2:4] == "26" or (list_of_plots[i])[3:5] == "26":
+    if (list_of_plots[i])[0:2] == "26" or (list_of_plots[i])[4:6] == "26" or (list_of_plots[i])[5:7] == "26":
         shutil.move(os.getcwd()+"/"+list_of_plots[i],dir_26GHz+"/"+list_of_plots[i])
     else:
         shutil.move(os.getcwd()+"/"+list_of_plots[i],dir_38GHz+"/"+list_of_plots[i])
 
-"""
-#Sort files using created directories
-i = 0
-for file in files_renamed:
-    if i<46:
-        shutil.move(current_path+'/'+file,current_path+'/26GHz'+'/'+file)
-    elif i>=46 and i<92:
-        shutil.move(current_path+'/'+file,current_path+'/38GHz'+'/'+file)
-    else:
-        shutil.move(current_path+'/'+file,current_path+'/Noise'+'/'+file)
-    i = i + 1
-"""
+target = "Plots"
+
+with zipfile.ZipFile("Plots.zip",'w',zipfile.ZIP_DEFLATED) as newzip:
+    for dirpath, dirnames, files in os.walk(target):
+        for file in files:
+            newzip.write(os.path.join(dirpath,file))
