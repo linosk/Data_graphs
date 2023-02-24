@@ -1,9 +1,10 @@
 import os
 import shutil
 
-files="Files"
-if os.path.exists(files):
-    shutil.rmtree(files)
+files=["Files","Plots"]
+for file in files:
+    if os.path.exists(file):
+        shutil.rmtree(file)
 
 pycache="__pycache__"
 if os.path.exists(pycache):
