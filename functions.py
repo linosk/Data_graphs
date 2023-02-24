@@ -45,19 +45,20 @@ def get_title_mean(scenario,pol,dom):
 
 def get_title_diff(scenario,dom):
     title = ""
+    title += "Diff-"
     title += scenario[0:2]+"-"
     title += scenario[2]+"-"
     title += scenario[3:5]+"-"
     if dom == "F":
-        title += "F-"
+        title += "F"
     else:
-        title += "T-"
-    title += "Diff"
+        title += "T"
 
     return title
 
 def get_title_mean_var(scenario,pol,dom):
     title = ""
+    title += "Var-"
     title += scenario[0:2]+"-"
     title += scenario[2]+"-"
     title += scenario[3:5]+"-"
@@ -66,15 +67,15 @@ def get_title_mean_var(scenario,pol,dom):
     else:
         title += "H-"
     if dom == "F":
-        title += "F-"
+        title += "F"
     else:
-        title += "T-"
-    title += "Var"
+        title += "T"
 
     return title
 
 def get_title_mean_std(scenario,pol,dom):
     title = ""
+    title += "Std-"
     title += scenario[0:2]+"-"
     title += scenario[2]+"-"
     title += scenario[3:5]+"-"
@@ -83,9 +84,8 @@ def get_title_mean_std(scenario,pol,dom):
     else:
         title += "H-"
     if dom == "F":
-        title += "F-"
+        title += "F"
     else:
-        title += "T-"
-    title += "Std"
+        title += "T"
 
     return title
