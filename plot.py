@@ -6,6 +6,7 @@ from matplotlib.ticker import StrMethodFormatter
 import os
 
 gain26 = 14
+#CHANGE ALL TO 14
 gain38V = 13
 gain38H = 15
 

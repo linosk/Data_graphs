@@ -1,0 +1,7 @@
+TODO:
+- make all the gain to 14dB
+- add gain in decibels
+- make the same scale for the y axis in the plots
+- remove plots in relation to measure time
+- remove variance plots leave standard deviation plot
+- just work on log values
