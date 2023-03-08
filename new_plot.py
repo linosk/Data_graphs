@@ -225,7 +225,7 @@ def distance_plots(CSVfilesgroups, path1, path2):
             plt.title("TBD")
             plt.xlabel("Odległość [m]")
             plt.ylabel("Wartość odchylenia standardowego [dB]")
-            #plt.ylim(ymax = maxy, ymin = miny)
+            plt.ylim(ymax = 10, ymin = 0)
             plt.savefig("STD26LOS"+".jpg")
             plt.close()
 
@@ -239,7 +239,7 @@ def distance_plots(CSVfilesgroups, path1, path2):
             plt.title("TBD")
             plt.xlabel("Odległość [m]")
             plt.ylabel("Wartość odchylenia standardowego [dB]")
-            #plt.ylim(ymax = maxy, ymin = miny)
+            plt.ylim(ymax = 10, ymin = 0)
             plt.savefig("STD26NLOS"+".jpg")
             plt.close()
 
@@ -339,7 +339,7 @@ def distance_plots(CSVfilesgroups, path1, path2):
             plt.title("TBD")
             plt.xlabel("Odległość [m]")
             plt.ylabel("Wartość odchylenia standardowego [dB]")
-            #plt.ylim(ymax = maxy, ymin = miny)
+            plt.ylim(ymax = 10, ymin = 0)
             plt.savefig("STD38LOS"+".jpg")
             plt.close()
 
@@ -353,7 +353,7 @@ def distance_plots(CSVfilesgroups, path1, path2):
             plt.title("TBD")
             plt.xlabel("Odległość [m]")
             plt.ylabel("Wartość odchylenia standardowego [dB]")
-            #plt.ylim(ymax = maxy, ymin = miny)
+            plt.ylim(ymax = 10, ymin = 0)
             plt.savefig("STD38NLOS"+".jpg")
             plt.close()
 
