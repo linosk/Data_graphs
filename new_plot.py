@@ -165,7 +165,7 @@ def distance_plots(CSVfilesgroups, path1, path2):
             plt.plot(distance_LOS,average_LOS_V, color='r', label='V-V')
             plt.legend(loc='upper left')
             plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.4f}'))
-            plt.title("Wartość średnia tłumienia propagacyjnego w zależności od odległości")
+            plt.title("Wartość średnia tłumienia propagacyjnego w zależności od odległości, 26GHz, LOS")
             plt.xlabel("Odległość [m]")
             plt.ylabel("Wartość średnia tłumienia propagacyjengo [dB]")
             plt.ylim(ymax = maxy, ymin = miny)
@@ -179,7 +179,7 @@ def distance_plots(CSVfilesgroups, path1, path2):
             plt.plot(distance_NLOS,average_NLOS_V, color='r', label='V-V')
             plt.legend(loc='upper left')
             plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.4f}'))
-            plt.title("Wartość średnia tłumienia propagacyjnego w zależności od odległości")
+            plt.title("Wartość średnia tłumienia propagacyjnego w zależności od odległości, 26GHz, NLOS")
             plt.xlabel("Odległość [m]")
             plt.ylabel("Wartość średnia tłumienia propagacyjengo [dB]")
             plt.ylim(ymax = maxy, ymin = miny)
@@ -194,26 +194,26 @@ def distance_plots(CSVfilesgroups, path1, path2):
             plt.figure(figsize=(width,height))
             plt.plot(distance_LOS,xpd_LOS)
             plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.4f}'))
-            plt.title("Wartość współczynnika dyskryminacji polaryzacji skrośnej w zależności od odległości")
+            plt.title("Wartość współczynnika dyskryminacji polaryzacji skrośnej w zależności od odległości - wartość średnia, 26GHz, LOS")
             plt.xlabel("Odległość [m]")
             plt.ylabel("Wartość współczynnika dyskryminacji polaryzacji skrośnej [dB]")
             plt.ylim(ymax = 45, ymin = -5)
-            plt.savefig("xpd26LOS"+".jpg")
+            plt.savefig("26xpdLOS"+".jpg")
             plt.close()
 
-            shutil.move("xpd26LOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/xpd26LOS.jpg")
+            shutil.move("26xpdLOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/26xpdLOS.jpg")
 
             plt.figure(figsize=(width,height))
             plt.plot(distance_NLOS,xpd_NLOS)
             plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.4f}'))
-            plt.title("Wartość współczynnika dyskryminacji polaryzacji skrośnej w zależności od odległości")
+            plt.title("Wartość współczynnika dyskryminacji polaryzacji skrośnej w zależności od odległości - wartość średnia, 26GHz, NLOS")
             plt.xlabel("Odległość [m]")
             plt.ylabel("Wartość współczynnika dyskryminacji polaryzacji skrośnej [dB]")
             plt.ylim(ymax = 45, ymin = -5)
-            plt.savefig("xpd26NLOS"+".jpg")
+            plt.savefig("26xpdNLOS"+".jpg")
             plt.close()
 
-            shutil.move("xpd26NLOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/xpd26NLOS.jpg")
+            shutil.move("26xpdNLOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/26xpdNLOS.jpg")
 
         ###########################################################################################
 
@@ -222,28 +222,28 @@ def distance_plots(CSVfilesgroups, path1, path2):
             plt.plot(distance_LOS,std_LOS_V, color='r', label='V-V')
             plt.legend(loc='upper left')
             plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.4f}'))
-            plt.title("TBD")
+            plt.title("Wartość odchylenia standardowego tłumienia propagacyjnego w zależności od odległości, 26GHz, LOS")
             plt.xlabel("Odległość [m]")
             plt.ylabel("Wartość odchylenia standardowego [dB]")
             plt.ylim(ymax = 10, ymin = 0)
-            plt.savefig("STD26LOS"+".jpg")
+            plt.savefig("26STDLOS"+".jpg")
             plt.close()
 
-            shutil.move("STD26LOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/STD26LOS.jpg")
+            shutil.move("26STDLOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/26STDLOS.jpg")
 
             plt.figure(figsize=(width,height))
             plt.plot(distance_NLOS,std_NLOS_H, color='g', label='V-H')
             plt.plot(distance_NLOS,std_NLOS_V, color='r', label='V-V')
             plt.legend(loc='upper left')
             plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.4f}'))
-            plt.title("TBD")
+            plt.title("Wartość odchylenia standardowego tłumienia propagacyjnego w zależności od odległości, 26GHz, NLOS")
             plt.xlabel("Odległość [m]")
             plt.ylabel("Wartość odchylenia standardowego [dB]")
             plt.ylim(ymax = 10, ymin = 0)
-            plt.savefig("STD26NLOS"+".jpg")
+            plt.savefig("26STDNLOS"+".jpg")
             plt.close()
 
-            shutil.move("STD26NLOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/STD26NLOS.jpg")
+            shutil.move("26STDNLOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/26STDNLOS.jpg")
 
             xpd_LOS = np.array(std_LOS_H) - np.array(std_LOS_V)
             xpd_NLOS = np.array(std_NLOS_H) - np.array(std_NLOS_V)
@@ -251,26 +251,60 @@ def distance_plots(CSVfilesgroups, path1, path2):
             plt.figure(figsize=(width,height))
             plt.plot(distance_LOS,xpd_LOS)
             plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.4f}'))
-            plt.title("TBD")
+            plt.title("Wartość współczynnika dyskryminacji polaryzacji skrośnej w zależności od odległości - odchylenie standardowe, 26GHz, LOS")
             plt.xlabel("Odległość [m]")
             plt.ylabel("Wartość współczynnika dyskryminacji polaryzacji skrośnej [dB]")
             plt.ylim(ymax = 45, ymin = -5)
-            plt.savefig("STDxpd26LOS"+".jpg")
+            plt.savefig("26STDxpdLOS"+".jpg")
             plt.close()
 
-            shutil.move("STDxpd26LOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/STDxpd26LOS.jpg")
+            shutil.move("26STDxpdLOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/26STDxpdLOS.jpg")
 
             plt.figure(figsize=(width,height))
             plt.plot(distance_NLOS,xpd_NLOS)
             plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.4f}'))
-            plt.title("TBD")
+            plt.title("Wartość współczynnika dyskryminacji polaryzacji skrośnej w zależności od odległości - odchylenie standardowe, 26GHz, NLOS")
             plt.xlabel("Odległość [m]")
             plt.ylabel("Wartość współczynnika dyskryminacji polaryzacji skrośnej [dB]")
             plt.ylim(ymax = 45, ymin = -5)
-            plt.savefig("STDxpd26NLOS"+".jpg")
+            plt.savefig("26STDxpdNLOS"+".jpg")
             plt.close()
 
-            shutil.move("STDxpd26NLOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/STDxpd26NLOS.jpg")
+            shutil.move("26STDxpdNLOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/26STDxpdNLOS.jpg")
+
+            LOSCorr = pd.DataFrame(list(zip(average_LOS_H,average_LOS_V)),columns=['V-H','V-V'])
+            CorrLOS = LOSCorr.corr(method='pearson')
+
+            NLOSCorr = pd.DataFrame(list(zip(average_NLOS_H,average_NLOS_V)),columns=['V-H','V-V'])
+            CorrNLOS = NLOSCorr.corr(method='pearson')
+
+            stdLOSCorr = pd.DataFrame(list(zip(std_LOS_H,std_LOS_V)),columns=['std V-H','std V-V'])
+            stdCorrLOS = stdLOSCorr.corr(method='pearson')
+
+            stdNLOSCorr = pd.DataFrame(list(zip(std_NLOS_H,std_NLOS_V)),columns=['std V-H','std V-V'])
+            stdCorrNLOS = stdNLOSCorr.corr(method='pearson')
+
+            os.chdir("/home/me/Uni/Master/Graphs/Data_graphs")
+
+            if os.path.exists("26Corr.txt"):
+                os.remove("26Corr.txt")
+            if not os.path.exists("26Corr.txt"):
+                file = open("26Corr.txt","x")
+                file.close()
+                file = open("26Corr.txt","w")
+                file.write("26GHz")
+
+
+            file.write("\n\nWspółczynnik korelacji między V-V a V-H dla 26GHz, warunki LOS.")
+            file.write("\n\n"+str(CorrLOS))
+            file.write("\n\nWspółczynnik korelacji między V-V a V-H dla 26GHz, warunki NLOS.")
+            file.write("\n\n"+str(CorrNLOS))
+            file.write("\n\nWspółczynnik korelacji między std V-V a std V-H dla 26GHz, warunki LOS.")
+            file.write("\n\n"+str(stdCorrLOS))
+            file.write("\n\nWspółczynnik korelacji między std V-V a std V-H dla 26GHz, warunki NLOS.")
+            file.write("\n\n"+str(stdCorrNLOS))
+
+            file.close()
 
         else:
 
@@ -279,7 +313,7 @@ def distance_plots(CSVfilesgroups, path1, path2):
             plt.plot(distance_LOS,average_LOS_V, color='r', label='V-V')
             plt.legend(loc='upper left')
             plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.4f}'))
-            plt.title("Wartość średnia tłumienia propagacyjnego w zależności od odległości")
+            plt.title("Wartość średnia tłumienia propagacyjnego w zależności od odległości, 38GHz, LOS")
             plt.xlabel("Odległość [m]")
             plt.ylabel("Wartość średnia tłumienia propagacyjengo [dB]")
             plt.ylim(ymax = maxy, ymin = miny)
@@ -293,7 +327,7 @@ def distance_plots(CSVfilesgroups, path1, path2):
             plt.plot(distance_NLOS,average_NLOS_V, color='r', label='V-V')
             plt.legend(loc='upper left')
             plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.4f}'))
-            plt.title("Wartość średnia tłumienia propagacyjnego w zależności od odległości")
+            plt.title("Wartość średnia tłumienia propagacyjnego w zależności od odległości, 38GHz, NLOS")
             plt.xlabel("Odległość [m]")
             plt.ylabel("Wartość średnia tłumienia propagacyjengo [dB]")
             plt.ylim(ymax = maxy, ymin = miny)
@@ -308,26 +342,26 @@ def distance_plots(CSVfilesgroups, path1, path2):
             plt.figure(figsize=(width,height))
             plt.plot(distance_LOS,xpd_LOS)
             plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.4f}'))
-            plt.title("Wartość współczynnika dyskryminacji polaryzacji skrośnej w zależności od odległości")
+            plt.title("Wartość współczynnika dyskryminacji polaryzacji skrośnej w zależności od odległości - wartość średnia, 38GHz, LOS")
             plt.xlabel("Odległość [m]")
             plt.ylabel("Wartość współczynnika dyskryminacji polaryzacji skrośnej [dB]")
             plt.ylim(ymax = 45, ymin = -5)
-            plt.savefig("xpd38LOS"+".jpg")
+            plt.savefig("38xpdLOS"+".jpg")
             plt.close()
 
-            shutil.move("xpd38LOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/xpd38LOS.jpg")
+            shutil.move("38xpdLOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/38xpdLOS.jpg")
 
             plt.figure(figsize=(width,height))
             plt.plot(distance_NLOS,xpd_NLOS)
             plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.4f}'))
-            plt.title("Wartość współczynnika dyskryminacji polaryzacji skrośnej w zależności od odległości")
+            plt.title("Wartość współczynnika dyskryminacji polaryzacji skrośnej w zależności od odległości - wartość średnia, 38GHz, NLOS")
             plt.xlabel("Odległość [m]")
             plt.ylabel("Wartość współczynnika dyskryminacji polaryzacji skrośnej [dB]")
             plt.ylim(ymax = 45, ymin = -5)
-            plt.savefig("xpd38NLOS"+".jpg")
+            plt.savefig("38xpdNLOS"+".jpg")
             plt.close()
 
-            shutil.move("xpd38NLOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/xpd38NLOS.jpg")
+            shutil.move("38xpdNLOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/38xpdNLOS.jpg")
 
         ###########################################################################################
 
@@ -336,28 +370,28 @@ def distance_plots(CSVfilesgroups, path1, path2):
             plt.plot(distance_LOS,std_LOS_V, color='r', label='V-V')
             plt.legend(loc='upper left')
             plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.4f}'))
-            plt.title("TBD")
+            plt.title("Wartość odchylenia standardowego tłumienia propagacyjnego w zależności od odległości, 38GHz, LOS")
             plt.xlabel("Odległość [m]")
             plt.ylabel("Wartość odchylenia standardowego [dB]")
             plt.ylim(ymax = 10, ymin = 0)
-            plt.savefig("STD38LOS"+".jpg")
+            plt.savefig("38STDLOS"+".jpg")
             plt.close()
 
-            shutil.move("STD38LOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/STD38LOS.jpg")
+            shutil.move("38STDLOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/38STDLOS.jpg")
 
             plt.figure(figsize=(width,height))
             plt.plot(distance_NLOS,std_NLOS_H, color='g', label='V-H')
             plt.plot(distance_NLOS,std_NLOS_V, color='r', label='V-V')
             plt.legend(loc='upper left')
             plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.4f}'))
-            plt.title("TBD")
+            plt.title("Wartość odchylenia standardowego tłumienia propagacyjnego w zależności od odległości, 38GHz, NLOS")
             plt.xlabel("Odległość [m]")
             plt.ylabel("Wartość odchylenia standardowego [dB]")
             plt.ylim(ymax = 10, ymin = 0)
-            plt.savefig("STD38NLOS"+".jpg")
+            plt.savefig("38STDNLOS"+".jpg")
             plt.close()
 
-            shutil.move("STD38NLOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/STD38NLOS.jpg")
+            shutil.move("38STDNLOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/38STDNLOS.jpg")
 
             xpd_LOS = np.array(std_LOS_H) - np.array(std_LOS_V)
             xpd_NLOS = np.array(std_NLOS_H) - np.array(std_NLOS_V)
@@ -365,26 +399,60 @@ def distance_plots(CSVfilesgroups, path1, path2):
             plt.figure(figsize=(width,height))
             plt.plot(distance_LOS,xpd_LOS)
             plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.4f}'))
-            plt.title("TBD")
+            plt.title("Wartość współczynnika dyskryminacji polaryzacji skrośnej w zależności od odległości - odchylenie standardowe, 38GHz, LOS")
             plt.xlabel("Odległość [m]")
             plt.ylabel("Wartość współczynnika dyskryminacji polaryzacji skrośnej [dB]")
             plt.ylim(ymax = 45, ymin = -5)
-            plt.savefig("STDxpd38LOS"+".jpg")
+            plt.savefig("38STDxpdLOS"+".jpg")
             plt.close()
 
-            shutil.move("STDxpd38LOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/STDxpd38LOS.jpg")
+            shutil.move("38STDxpdLOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/38STDxpdLOS.jpg")
 
             plt.figure(figsize=(width,height))
             plt.plot(distance_NLOS,xpd_NLOS)
             plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.4f}'))
-            plt.title("TBD")
+            plt.title("Wartość współczynnika dyskryminacji polaryzacji skrośnej w zależności od odległości - odchylenie standardowe, 38GHz, NLOS")
             plt.xlabel("Odległość [m]")
             plt.ylabel("Wartość współczynnika dyskryminacji polaryzacji skrośnej [dB]")
             plt.ylim(ymax = 45, ymin = -5)
-            plt.savefig("STDxpd38NLOS"+".jpg")
+            plt.savefig("38STDxpdNLOS"+".jpg")
             plt.close()
 
-            shutil.move("STDxpd38NLOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/STDxpd38NLOS.jpg")
+            shutil.move("38STDxpdNLOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/38STDxpdNLOS.jpg")
+
+            LOSCorr = pd.DataFrame(list(zip(average_LOS_H,average_LOS_V)),columns=['V-H','V-V'])
+            CorrLOS = LOSCorr.corr(method='pearson')
+
+            NLOSCorr = pd.DataFrame(list(zip(average_NLOS_H,average_NLOS_V)),columns=['V-H','V-V'])
+            CorrNLOS = NLOSCorr.corr(method='pearson')
+
+            stdLOSCorr = pd.DataFrame(list(zip(std_LOS_H,std_LOS_V)),columns=['std V-H','std V-V'])
+            stdCorrLOS = stdLOSCorr.corr(method='pearson')
+
+            stdNLOSCorr = pd.DataFrame(list(zip(std_NLOS_H,std_NLOS_V)),columns=['std V-H','std V-V'])
+            stdCorrNLOS = stdNLOSCorr.corr(method='pearson')
+
+            os.chdir("/home/me/Uni/Master/Graphs/Data_graphs")
+
+            if os.path.exists("38Corr.txt"):
+                os.remove("38Corr.txt")
+            if not os.path.exists("38Corr.txt"):
+                file = open("38Corr.txt","x")
+                file.close()
+                file = open("38Corr.txt","w")
+                file.write("38GHz")
+
+
+            file.write("\n\nWspółczynnik korelacji między V-V a V-H dla 38GHz, warunki LOS.")
+            file.write("\n\n"+str(CorrLOS))
+            file.write("\n\nWspółczynnik korelacji między V-V a V-H dla 38GHz, warunki NLOS.")
+            file.write("\n\n"+str(CorrNLOS))
+            file.write("\n\nWspółczynnik korelacji między std V-V a std V-H dla 38GHz, warunki LOS.")
+            file.write("\n\n"+str(stdCorrLOS))
+            file.write("\n\nWspółczynnik korelacji między std V-V a std V-H dla 38GHz, warunki NLOS.")
+            file.write("\n\n"+str(stdCorrNLOS))
+
+            file.close()
 
 
     
