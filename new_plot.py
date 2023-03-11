@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import StrMethodFormatter
 import shutil
+from functions import make_plot
 
 CSV26Files = os.listdir("/home/me/Uni/Master/Graphs/Data_graphs/Files/26GHz")
 CSV26Files.sort()
@@ -160,33 +161,8 @@ def distance_plots(CSVfilesgroups, path1, path2):
 
         if CSVFiles == CSV26Files:
 
-            plt.figure(figsize=(width,height))
-            plt.plot(distance_LOS,average_LOS_H, color='g', label='V-H')
-            plt.plot(distance_LOS,average_LOS_V, color='r', label='V-V')
-            plt.legend(loc='upper left')
-            plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.4f}'))
-            plt.title("Wartość średnia tłumienia propagacyjnego w zależności od odległości, 26GHz, LOS")
-            plt.xlabel("Odległość [m]")
-            plt.ylabel("Wartość średnia tłumienia propagacyjengo [dB]")
-            plt.ylim(ymax = maxy, ymin = miny)
-            plt.savefig("26LOS"+".jpg")
-            plt.close()
-
-            shutil.move("26LOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/26LOS.jpg")
-
-            plt.figure(figsize=(width,height))
-            plt.plot(distance_NLOS,average_NLOS_H, color='g', label='V-H')
-            plt.plot(distance_NLOS,average_NLOS_V, color='r', label='V-V')
-            plt.legend(loc='upper left')
-            plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.4f}'))
-            plt.title("Wartość średnia tłumienia propagacyjnego w zależności od odległości, 26GHz, NLOS")
-            plt.xlabel("Odległość [m]")
-            plt.ylabel("Wartość średnia tłumienia propagacyjengo [dB]")
-            plt.ylim(ymax = maxy, ymin = miny)
-            plt.savefig("26NLOS"+".jpg")
-            plt.close()
-
-            shutil.move("26NLOS.jpg","/home/me/Uni/Master/Graphs/Data_graphs/26NLOS.jpg")
+            make_plot(average_LOS_H,average_LOS_V,120,50,distance_LOS,'2LA')
+            make_plot(average_NLOS_H,average_NLOS_V,120,50,distance_NLOS,'2NA')
 
             xpd_LOS = np.array(average_LOS_H) - np.array(average_LOS_V)
             xpd_NLOS = np.array(average_NLOS_H) - np.array(average_NLOS_V)
