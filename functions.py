@@ -132,12 +132,12 @@ def make_plot(y_axis_one, y_axis_two, maxy, miny, x_axis, type):
         elif type[3] == 'V':
             distance = int(type[4]) + int(type[5])/10
             yaxis_part = '\u03B1'
-            title_part = f'{yaxis_part} polaryzacja V, odległość {distance} m '
+            title_part = f'{yaxis_part} polaryzacja V, odległość {distance}m, '
             file_part = f'AVG_VER_{type[4:]}'
         elif type[3] == 'H':
             distance = int(type[4]) + int(type[5])/10
             yaxis_part = '\u03B1'
-            title_part = f'{yaxis_part} polaryzacja H, odległość {distance} m '
+            title_part = f'{yaxis_part} polaryzacja H, odległość {distance}m, '
             file_part = f'AVG_HOR_{type[4:]}'
 
     else:
@@ -152,23 +152,23 @@ def make_plot(y_axis_one, y_axis_two, maxy, miny, x_axis, type):
         elif type[3] == 'V':
             distance = int(type[4]) + int(type[5])/10
             yaxis_part = '\u03C3'
-            title_part = f'{yaxis_part} polaryzacja V, odległość {distance} m '
+            title_part = f'{yaxis_part} polaryzacja V, odległość {distance}m, '
             file_part = f'STD_VER_{type[4:]}'
         elif type[3] == 'H':
             distance = int(type[4]) + int(type[5])/10
             yaxis_part = '\u03C3'
-            title_part = f'{yaxis_part} polaryzacja H, odległość {distance} m '
+            title_part = f'{yaxis_part} polaryzacja H, odległość {distance}m, '
             file_part = f'STD_HOR_{type[4:]}'
 
     plt.figure(figsize=(width,height))
 
     if type[3] == 'P':
-        plt.plot(x_axis,y_axis_one, color='g',label='V-H')
-        plt.plot(x_axis,y_axis_two, color='r',label='V-V')
+        plt.plot(x_axis,y_axis_one, marker='x', color='g',label='V-H')
+        plt.plot(x_axis,y_axis_two, marker='o', color='r',label='V-V')
         plt.legend(loc='upper left')
     else:
         plt.plot(x_axis,y_axis_one)
-    plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.2f}'))
+    plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.0f}'))
     plt.title(f'{title_part}{freg}GHz, {con}')
     if type[3] == 'P' or type[3] == 'X':
         plt.xlabel('d [m]')
@@ -176,7 +176,12 @@ def make_plot(y_axis_one, y_axis_two, maxy, miny, x_axis, type):
         plt.xlabel('f [GHz]')
     plt.ylabel(f'{yaxis_part} [dB]')
 
+    plt.xlim(left=x_axis[0])
+    plt.xlim(right=x_axis[-1])
     plt.ylim(ymax=maxy, ymin=miny)
+    plt.grid(which='major',linestyle='-',linewidth='0.5',color='black')
+    plt.grid(which='minor',linestyle=':',linewidth='0.5',color='grey')
+    plt.minorticks_on()
     file_name = f'{freg}_{con}_{file_part}.jpg'
     plt.savefig(file_name)
     plt.close()

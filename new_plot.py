@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import numpy as np
-from functions import make_plot
+from functions import make_plot, find_log_value, find_log_value_arr
 
 CSV26Files = os.listdir("/home/me/Uni/Master/Graphs/Data_graphs/Files/26GHz")
 CSV26Files.sort()
@@ -14,9 +14,31 @@ CSVfilesgroups = [CSV26Files,CSV38Files]
 gain = 14
 
 def distance_plots(CSVfilesgroups, path1, path2):
+
+    curr = os.getcwd()
+
     distance_LOS = [0.7,1.0,1.5,2.0,2.5,3.0,3.5,4.0,4.5,5.0,5.5,6.0]
+    distance_LOS = find_log_value_arr(distance_LOS)
 
     distance_NLOS = [0.5,1.0,1.5,2.0,2.5,3.0,3.5,4.0,4.5,5.0,5.5]
+    distance_NLOS = find_log_value_arr(distance_NLOS)
+
+    corr_26_LOS_AVG = 0
+    corr_26_NLOS_AVG = 0
+
+    corr_38_LOS_AVG = 0
+    corr_38_NLOS_AVG = 0
+
+    corr_26_LOS_STD = 0
+    corr_26_NLOS_STD = 0
+
+    corr_38_LOS_STD = 0
+    corr_38_NLOS_STD = 0
+
+    a = 0
+    b = 0
+    c = 0
+    d = 0
 
     for CSVFiles in CSVfilesgroups:
         if CSVFiles == CSV26Files:
@@ -62,12 +84,6 @@ def distance_plots(CSVfilesgroups, path1, path2):
             cdf=cdf.drop([0])
             cdf=cdf.drop(['index','Unnamed: 0','Unnamed: 4','t [s] U f [Hz]:'],axis=1)
 
-            #Copy column contiang the time of measurement - not really important in this case, can ommit
-            time = cdf['Unnamed: 3']
-            time = time[::2]
-            time = time.astype(float)
-            time = time.to_numpy()
-
             #Copy dataframe contesnts and delete additional columns
             ndf=cdf.drop(['Unnamed: 1','Unnamed: 2','Unnamed: 3'],axis=1)
 
@@ -90,18 +106,50 @@ def distance_plots(CSVfilesgroups, path1, path2):
                     ndf[i,j]=-ndf[i,j]+gain+gain
             
             freq = freq/1e10
-            time = time/1000
 
             S31mean = [0] * col
-            S41mean = [0] * col            
+            S41mean = [0] * col
+            S31std = [0] * col
+            S41std = [0] * col
 
             #Calculate mean for i-th column for the S31 scenario in relative to frequency
             for i in range(col):
                 S31mean[i] = np.mean((ndf[:,i])[0::2])
+                S31std[i] = np.std((ndf[:,i])[0::2])
+            make_plot(S31mean,0,150,50,freq,f'{scenario[0]}{scenario[2]}AV{scenario[3:5]}')
+            make_plot(S31std,0,10,0,freq,f'{scenario[0]}{scenario[2]}SV{scenario[3:5]}')
             
             #Calculate mean for i-th column for the S41 scenario in relative to frequency
             for i in range(col):
                 S41mean[i] = np.mean((ndf[:,i])[1::2])
+                S41std[i] = np.std((ndf[:,i])[1::2])
+            make_plot(S41mean,0,150,50,freq,f'{scenario[0]}{scenario[2]}AH{scenario[3:5]}')
+            make_plot(S41std,0,10,0,freq,f'{scenario[0]}{scenario[2]}SH{scenario[3:5]}')
+
+            if scenario[0] == '2':
+                if scenario[2] == 'L':
+                    a+=1
+                    corr_26_LOS_AVG += np.corrcoef(S31mean,S41mean)[0][1]
+                    corr_26_LOS_STD += np.corrcoef(S31std,S41std)[0][1]
+                else:
+                    b+=1
+                    corr_26_NLOS_AVG += np.corrcoef(S31mean,S41mean)[0][1]
+                    corr_26_NLOS_STD += np.corrcoef(S31std,S41std)[0][1]
+            else:
+                if scenario[2] == 'L':
+                    c+=1
+                    corr_38_LOS_AVG += np.corrcoef(S31mean,S41mean)[0][1]
+                    corr_38_LOS_STD += np.corrcoef(S31std,S41std)[0][1]
+                else:
+                    d+=1
+                    corr_38_NLOS_AVG += np.corrcoef(S31mean,S41mean)[0][1]
+                    corr_38_NLOS_STD += np.corrcoef(S31std,S41std)[0][1]
+
+            #print(type(np.corrcoef(S31mean,S41mean)))
+            #print(np.corrcoef(S31std,S41std)[0][0])
+            #print(np.corrcoef(S31std,S41std)[0][1])
+            #print(np.corrcoef(S31std,S41std)[1][0])
+            #print(np.corrcoef(S31std,S41std)[1][1])
 
             S31mean_mean = np.mean(S31mean)
             S41mean_mean = np.mean(S41mean)
@@ -158,5 +206,29 @@ def distance_plots(CSVfilesgroups, path1, path2):
 
             make_plot(xpd_LOS,0,45,-5,distance_LOS,'3LSXDD')
             make_plot(xpd_NLOS,0,45,-5,distance_NLOS,'3NSXDD')
+    
+    os.chdir(curr)
+
+    file = open('CorrEff.txt','w')
+    file.write('Wartość średnia współczynnika korelacji dla 26GHz, LOS, średnie tłumienie propagacyjne.')
+    file.write(f'\n{corr_26_LOS_AVG/a}')
+    file.write('\n\nWartość średnia współczynnika korelacji dla 26GHz, NLOS, średnie tłumienie propagacyjne.')
+    file.write(f'\n{corr_26_NLOS_AVG/a}')
+
+    file.write('\n\nWartość średnia współczynnika korelacji dla 38GHz, LOS, średnie tłumienie propagacyjne.')
+    file.write(f'\n{corr_38_LOS_AVG/b}')
+    file.write('\n\nWartość średnia współczynnika korelacji dla 38GHz, NLOS, średnie tłumienie propagacyjne.')
+    file.write(f'\n{corr_38_NLOS_AVG/b}')
+
+    file.write('\n\nWartość średnia współczynnika korelacji dla 26GHz, LOS, odchylenie standardowe.')
+    file.write(f'\n{corr_26_LOS_STD/c}')
+    file.write('\n\nWartość średnia współczynnika korelacji dla 26GHz, NLOS, odchylenie standardowe.')
+    file.write(f'\n{corr_26_NLOS_STD/c}')
+
+    file.write('\n\nWartość średnia współczynnika korelacji dla 38GHz, LOS, odchylenie standardowe.')
+    file.write(f'\n{corr_38_LOS_STD/d}')
+    file.write('\n\nWartość średnia współczynnika korelacji dla 38GHz, NLOS, odchylenie standardowe.')
+    file.write(f'\n{corr_38_NLOS_STD/d}')
+    file.close()
 
 distance_plots(CSVfilesgroups,"/home/me/Uni/Master/Graphs/Data_graphs/Files/26GHz","/home/me/Uni/Master/Graphs/Data_graphs/Files/38GHz")
