@@ -116,3 +116,10 @@ for file in files38:
 #Remove noise background measurement
 os.chdir(curr)
 shutil.rmtree(curr+'/Noise')
+
+#Create directory for all the plots
+index = curr.find('/Files')
+curr = curr[:index]
+os.chdir(curr)
+if not os.path.exists(f'{curr}/Plots'):
+    os.mkdir(f'{curr}/Plots')
