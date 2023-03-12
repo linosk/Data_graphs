@@ -1,6 +1,7 @@
 import os
 import shutil
 import zipfile
+import pandas as pd
 
 #Path to zipped data
 raw_data_path = os.getcwd()
@@ -76,3 +77,49 @@ for file in files_renamed:
     else:
         shutil.move(current_path+'/'+file,current_path+'/Noise'+'/'+file)
     i = i + 1
+
+curr = os.getcwd()
+
+path26 = os.getcwd() + "/26GHz"
+path38 = os.getcwd() + "/38GHz"
+
+files26 = os.listdir(path26)
+files38 = os.listdir(path38)
+
+#Remove files containing measurements in relation to time domain
+count = 0
+os.chdir(path26)
+for file in files26:
+    try:
+        df = pd.read_csv(file, skiprows=28, encoding_errors='ignore')
+        scenario = df['Unnamed: 4'].values[1]
+        if(scenario[5]=='F'):
+            count+=1
+        else:
+            os.remove(file)
+    except:
+        os.remove(file)
+
+count = 0
+os.chdir(path38)
+for file in files38:
+    try:
+        df = pd.read_csv(file, skiprows=28, encoding_errors='ignore')
+        scenario = df['Unnamed: 4'].values[1]
+        if(scenario[5]=='F'):
+            count+=1
+        else:
+            os.remove(file)
+    except:
+        os.remove(file)
+
+#Remove noise background measurement
+os.chdir(curr)
+shutil.rmtree(curr+'/Noise')
+
+#Create directory for all the plots
+index = curr.find('/Files')
+curr = curr[:index]
+os.chdir(curr)
+if not os.path.exists(f'{curr}/Plots'):
+    os.mkdir(f'{curr}/Plots')

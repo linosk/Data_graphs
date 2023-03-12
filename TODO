@@ -5,3 +5,5 @@ TODO:
 - remove plots in relation to measure time
 - remove variance plots leave standard deviation plot
 - just work on log values
+
+Make script that creates plot for every instantaneoes freqency value and calculates average correlation coefficent
