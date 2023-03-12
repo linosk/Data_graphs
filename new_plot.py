@@ -1,8 +1,6 @@
 import os
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.ticker import StrMethodFormatter
 from functions import make_plot
 
 CSV26Files = os.listdir("/home/me/Uni/Master/Graphs/Data_graphs/Files/26GHz")
