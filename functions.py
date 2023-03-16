@@ -122,21 +122,21 @@ def make_plot(y_axis_one, y_axis_two, maxy, miny, x_axis, type):
 
     if type[2] == 'A':
         if type[3] == 'P':
-            yaxis_part = '\u03B1'
+            yaxis_part = 'L'
             title_part = f'{yaxis_part} od d dla obu polaryzacji, '
             file_part = 'AVG_BOTH'
         elif type[3] == 'X':
-            yaxis_part = 'XPD'
+            yaxis_part = '$XPD_L$'
             title_part = f'{yaxis_part} od d, '
             file_part = 'AVG_XPD'
         elif type[3] == 'V':
             distance = int(type[4]) + int(type[5])/10
-            yaxis_part = '\u03B1'
+            yaxis_part = 'L'
             title_part = f'{yaxis_part} polaryzacja V, odległość {distance}m, '
             file_part = f'AVG_VER_{type[4:]}'
         elif type[3] == 'H':
             distance = int(type[4]) + int(type[5])/10
-            yaxis_part = '\u03B1'
+            yaxis_part = 'L'
             title_part = f'{yaxis_part} polaryzacja H, odległość {distance}m, '
             file_part = f'AVG_HOR_{type[4:]}'
 
@@ -146,7 +146,7 @@ def make_plot(y_axis_one, y_axis_two, maxy, miny, x_axis, type):
             title_part = f'{yaxis_part} od d dla obu polaryzacji, '
             file_part = 'STD_BOTH'
         elif type[3] == 'X':
-            yaxis_part = 'XPD'
+            yaxis_part = '$XPD_\u03C3$'
             title_part = f'{yaxis_part} od d, '
             file_part = 'STD_XPD'
         elif type[3] == 'V':
@@ -167,7 +167,7 @@ def make_plot(y_axis_one, y_axis_two, maxy, miny, x_axis, type):
         plt.plot(x_axis,y_axis_two, marker='o', color='r',label='V-V')
         plt.legend(loc='upper left')
     else:
-        plt.plot(x_axis,y_axis_one)
+        plt.plot(x_axis,y_axis_one, marker='*')
     plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.0f}'))
     plt.title(f'{title_part}{freg}GHz, {con}')
     if type[3] == 'P' or type[3] == 'X':

@@ -18,10 +18,8 @@ def distance_plots(CSVfilesgroups, path1, path2):
     curr = os.getcwd()
 
     distance_LOS = [0.7,1.0,1.5,2.0,2.5,3.0,3.5,4.0,4.5,5.0,5.5,6.0]
-    distance_LOS = find_log_value_arr(distance_LOS)
 
     distance_NLOS = [0.5,1.0,1.5,2.0,2.5,3.0,3.5,4.0,4.5,5.0,5.5]
-    distance_NLOS = find_log_value_arr(distance_NLOS)
 
     corr_26_LOS_AVG = 0
     corr_26_NLOS_AVG = 0
@@ -125,6 +123,17 @@ def distance_plots(CSVfilesgroups, path1, path2):
                 S41std[i] = np.std((ndf[:,i])[1::2])
             make_plot(S41mean,0,150,50,freq,f'{scenario[0]}{scenario[2]}AH{scenario[3:5]}')
             make_plot(S41std,0,10,0,freq,f'{scenario[0]}{scenario[2]}SH{scenario[3:5]}')
+
+            VER = 0
+            HOR = 0
+            for i in range(col):
+                if S41mean[i]>S31mean[i]:
+                    HOR+=1
+                else:
+                    VER+=1
+
+            print(VER)
+            print(HOR)
 
             if scenario[0] == '2':
                 if scenario[2] == 'L':
