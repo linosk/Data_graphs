@@ -142,21 +142,21 @@ def make_plot(y_axis_one, y_axis_two, maxy, miny, x_axis, type):
 
     else:
         if type[3] == 'P':
-            yaxis_part = '\u03C3'
+            yaxis_part = '$\u03C3_{L}$'
             title_part = f'{yaxis_part} od d dla obu polaryzacji, '
             file_part = 'STD_BOTH'
         elif type[3] == 'X':
-            yaxis_part = '$XPD_\u03C3$'
+            yaxis_part = '$\u03C3_{XPD}$'
             title_part = f'{yaxis_part} od d, '
             file_part = 'STD_XPD'
         elif type[3] == 'V':
             distance = int(type[4]) + int(type[5])/10
-            yaxis_part = '\u03C3'
+            yaxis_part = '$\u03C3_{L}$'
             title_part = f'{yaxis_part} polaryzacja V, odległość {distance}m, '
             file_part = f'STD_VER_{type[4:]}'
         elif type[3] == 'H':
             distance = int(type[4]) + int(type[5])/10
-            yaxis_part = '\u03C3'
+            yaxis_part = '$\u03C3_{L}$'
             title_part = f'{yaxis_part} polaryzacja H, odległość {distance}m, '
             file_part = f'STD_HOR_{type[4:]}'
 
