@@ -1,7 +1,7 @@
 import os
 import shutil
 
-folders=["Files","__pycache__","Plots"]
+folders=["Files","__pycache__","Plots","Sent"]
 for folder in folders:
     if os.path.exists(folder):
         shutil.rmtree(folder)
