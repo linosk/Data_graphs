@@ -126,7 +126,7 @@ def make_plot(y_axis_one, y_axis_two, maxy, miny, x_axis, type):
             title_part = f'{yaxis_part} od d dla obu polaryzacji, '
             file_part = 'AVG_BOTH'
         elif type[3] == 'X':
-            yaxis_part = '$XPD_L$'
+            yaxis_part = 'XPD'
             title_part = f'{yaxis_part} od d, '
             file_part = 'AVG_XPD'
         elif type[3] == 'V':
