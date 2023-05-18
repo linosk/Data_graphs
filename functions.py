@@ -122,9 +122,15 @@ def make_plot(y_axis_one, y_axis_two, maxy, miny, x_axis, type):
 
     if type[2] == 'A':
         if type[3] == 'P':
-            yaxis_part = 'L'
-            title_part = f'{yaxis_part} od d dla obu polaryzacji, '
-            file_part = 'AVG_BOTH'
+            if type[4] == 'D':
+                yaxis_part = 'L'
+                title_part = f'{yaxis_part} od d dla obu polaryzacji, '
+                file_part = 'AVG_BOTH'
+            else:
+                distance = int(type[4]) + int(type[5])/10
+                yaxis_part = 'L'
+                title_part = f'{yaxis_part} odległość {distance}m dla obu polaryzacji, '
+                file_part = f'AVG_BOTH_{type[4:]}'
         elif type[3] == 'X':
             if type[4] == 'D':
                 yaxis_part = 'XPD'
@@ -146,6 +152,7 @@ def make_plot(y_axis_one, y_axis_two, maxy, miny, x_axis, type):
             title_part = f'{yaxis_part} polaryzacja H, odległość {distance}m, '
             file_part = f'AVG_HOR_{type[4:]}'
 
+    #std
     else:
         if type[3] == 'P':
             yaxis_part = '$\u03C3_{L}$'
@@ -169,9 +176,14 @@ def make_plot(y_axis_one, y_axis_two, maxy, miny, x_axis, type):
     plt.figure(figsize=(width,height))
 
     if type[3] == 'P':
-        plt.plot(x_axis,y_axis_one, marker='x', color='g',label='V-H')
-        plt.plot(x_axis,y_axis_two, marker='o', color='r',label='V-V')
-        plt.legend(loc='upper left')
+        if type[4] == 'D':
+            plt.plot(x_axis,y_axis_one, marker='x', color='g',label='Pionowa-Pozioma')
+            plt.plot(x_axis,y_axis_two, marker='o', color='r',label='Pionowa-Pionowa')
+            plt.legend(loc='upper left')
+        else:
+            plt.plot(x_axis,y_axis_one, color='g',label='Pionowa-Poziowa')
+            plt.plot(x_axis,y_axis_two, color='r',label='Pionowa-Pionowa')
+            plt.legend(loc='upper left')
     #What: P, X, V, H
     elif type[3] == 'H' or type[3] == 'V':
         plt.plot(x_axis,y_axis_one)
@@ -187,8 +199,8 @@ def make_plot(y_axis_one, y_axis_two, maxy, miny, x_axis, type):
 
     plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.0f}'))
     #remove later
-    #plt.title(f'{title_part}{freg}GHz, {con}')
-    if type[3] == 'P' or (type[3] == 'X' and type[4] == '4'):
+    plt.title(f'{title_part}{freg}GHz, {con}')
+    if (type[3] == 'P' and type[4] == 'D') or (type[3] == 'X' and type[4] == 'D'):
         plt.xlabel('d [m]')
     else:
         plt.xlabel('f [GHz]')
