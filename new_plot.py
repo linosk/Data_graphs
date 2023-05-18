@@ -116,6 +116,8 @@ def distance_plots(CSVfilesgroups, path1, path2):
             S31std = [0] * col
             S41std = [0] * col
 
+            Sxpd = [0] *col
+
             XPD = [0] * col
 
             for i in range(col):
@@ -126,10 +128,21 @@ def distance_plots(CSVfilesgroups, path1, path2):
                 S41std[i] = np.std((ndf[:,i])[1::2])
 
                 XPD[i] = np.array(S41mean[i]) - np.array(S31mean[i])
+
+            Sxpd = np.array(S41mean) - np.array(S31mean)
+
+            print(f'{scenario[0]}{scenario[2]}AV{scenario[3:5]}')
             make_plot(S31mean,0,150,50,freq,f'{scenario[0]}{scenario[2]}AV{scenario[3:5]}')
+            print(f'{scenario[0]}{scenario[2]}SV{scenario[3:5]}')
             make_plot(S31std,0,10,0,freq,f'{scenario[0]}{scenario[2]}SV{scenario[3:5]}')
+            print(f'{scenario[0]}{scenario[2]}AH{scenario[3:5]}')
             make_plot(S41mean,0,150,50,freq,f'{scenario[0]}{scenario[2]}AH{scenario[3:5]}')
+            print(f'{scenario[0]}{scenario[2]}SH{scenario[3:5]}')
             make_plot(S41std,0,10,0,freq,f'{scenario[0]}{scenario[2]}SH{scenario[3:5]}')
+            print(f'{scenario[0]}{scenario[2]}AX{scenario[3:5]}')
+            make_plot(Sxpd,0,65,-25,freq,f'{scenario[0]}{scenario[2]}AX{scenario[3:5]}')
+            #make_plot(XPD_for_std_LOS,0,45,-5,distance_LOS,'2LSXDD')
+            #make_plot(xpd_LOS,0,45,-5,distance_LOS,'2LAXDD')
 
             VER = 0
             HOR = 0
@@ -139,8 +152,8 @@ def distance_plots(CSVfilesgroups, path1, path2):
                 else:
                     VER+=1
 
-            print(VER)
-            print(HOR)
+            #print(VER)
+            #print(HOR)
 
             if scenario[0] == '2':
                 if scenario[2] == 'L':
