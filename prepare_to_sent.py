@@ -19,7 +19,7 @@ plots = os.listdir(plots_dir)
 plots_to_sent = []
 
 for plot in plots:
-    if re.search(r"VER",plot) or re.search(r"HOR",plot) or re.search(r"XPD_",plot):
+    if re.search(r"VER",plot) or re.search(r"HOR",plot) or re.search(r"XPD_",plot) or re.search(r"AVG_BOTH_",plot):
         pass
     else:
         shutil.move(f'{plots_dir}/{plot}',f'{sent_dir}/{plot}')

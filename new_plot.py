@@ -133,12 +133,17 @@ def distance_plots(CSVfilesgroups, path1, path2):
 
             print(f'{scenario[0]}{scenario[2]}AV{scenario[3:5]}')
             make_plot(S31mean,0,150,50,freq,f'{scenario[0]}{scenario[2]}AV{scenario[3:5]}')
-            print(f'{scenario[0]}{scenario[2]}SV{scenario[3:5]}')
-            make_plot(S31std,0,10,0,freq,f'{scenario[0]}{scenario[2]}SV{scenario[3:5]}')
+            ##print(f'{scenario[0]}{scenario[2]}SV{scenario[3:5]}')
+            ##make_plot(S31std,0,10,0,freq,f'{scenario[0]}{scenario[2]}SV{scenario[3:5]}')
             print(f'{scenario[0]}{scenario[2]}AH{scenario[3:5]}')
             make_plot(S41mean,0,150,50,freq,f'{scenario[0]}{scenario[2]}AH{scenario[3:5]}')
-            print(f'{scenario[0]}{scenario[2]}SH{scenario[3:5]}')
-            make_plot(S41std,0,10,0,freq,f'{scenario[0]}{scenario[2]}SH{scenario[3:5]}')
+            #print(f'{scenario[0]}{scenario[2]}SH{scenario[3:5]}')
+            #make_plot(S41std,0,10,0,freq,f'{scenario[0]}{scenario[2]}SH{scenario[3:5]}')
+
+            # make_plot(average_LOS_H,average_LOS_V,120,50,distance_LOS,'2LAPDD')
+            print(f'{scenario[0]}{scenario[2]}AH{scenario[3:5]}')
+            make_plot(S31mean,S41mean,150,50,freq,f'{scenario[0]}{scenario[2]}AP{scenario[3:5]}')
+
             print(f'{scenario[0]}{scenario[2]}AX{scenario[3:5]}')
             make_plot(Sxpd,0,65,-25,freq,f'{scenario[0]}{scenario[2]}AX{scenario[3:5]}')
             #make_plot(XPD_for_std_LOS,0,45,-5,distance_LOS,'2LSXDD')
