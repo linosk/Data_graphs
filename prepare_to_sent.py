@@ -19,7 +19,7 @@ plots = os.listdir(plots_dir)
 plots_to_sent = []
 
 for plot in plots:
-    if re.search(r"VER",plot) or re.search(r"HOR",plot):
+    if re.search(r"VER",plot) or re.search(r"HOR",plot) or re.search(r"XPD_",plot):
         pass
     else:
         shutil.move(f'{plots_dir}/{plot}',f'{sent_dir}/{plot}')
@@ -28,5 +28,10 @@ shutil.move(f'{curr_dir}/CorrEff.txt',f'{sent_dir}/CorrEff.txt')
 
 with zipfile.ZipFile("Sent.zip",'w',zipfile.ZIP_DEFLATED) as newzip:
     for dirpath, dirnames, files in os.walk('Sent'):
+        for file in files:
+            newzip.write(os.path.join(dirpath,file))
+
+with zipfile.ZipFile("Plots.zip",'w',zipfile.ZIP_DEFLATED) as newzip:
+    for dirpath, dirnames, files in os.walk('Plots'):
         for file in files:
             newzip.write(os.path.join(dirpath,file))
