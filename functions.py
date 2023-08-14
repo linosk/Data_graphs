@@ -109,6 +109,7 @@ def make_plot(y_axis_one, y_axis_two, maxy, miny, x_axis, type):
     index = path.find('/Files')
     path = path[:index]
     path = path + '/Plots'
+    plt.rcParams['font.size'] = 16
 
     if type[0] == '2':
         freg = '26'
@@ -199,7 +200,7 @@ def make_plot(y_axis_one, y_axis_two, maxy, miny, x_axis, type):
 
     plt.gca().yaxis.set_major_formatter(StrMethodFormatter('{x:,.0f}'))
     #remove later
-    plt.title(f'{title_part}{freg}GHz, {con}')
+    #plt.title(f'{title_part}{freg}GHz, {con}')
     if (type[3] == 'P' and type[4] == 'D') or (type[3] == 'X' and type[4] == 'D'):
         plt.xlabel('d [m]')
     else:
