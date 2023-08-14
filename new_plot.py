@@ -94,6 +94,7 @@ def distance_plots(CSVfilesgroups, path1, path2):
             #Find out the dataframe dimensions
             row, col = ndf.shape
 
+
             #Copy X axis values to turn it to 1d array
             freq = ndf.columns
             freq = freq.to_numpy()
@@ -207,10 +208,22 @@ def distance_plots(CSVfilesgroups, path1, path2):
 
                 XPD_for_std_NLOS.append(XPD_XPD)
 
+        #corr_26_LOS_AVG = 0
+        #corr_26_NLOS_AVG = 0
+#
+        #corr_38_LOS_AVG = 0
+        #corr_38_NLOS_AVG = 0
+#
+        #corr_26_LOS_STD = 0
+        #corr_26_NLOS_STD = 0
+#
+        #corr_38_LOS_STD = 0
+        #corr_38_NLOS_STD = 0
+
         if CSVFiles == CSV26Files:
 
-            make_plot(average_LOS_H,average_LOS_V,120,50,distance_LOS,'2LAPDD')
-            make_plot(average_NLOS_H,average_NLOS_V,120,50,distance_NLOS,'2NAPDD')
+            make_plot(average_LOS_H,average_LOS_V,130,50,distance_LOS,'2LAPDD')
+            make_plot(average_NLOS_H,average_NLOS_V,130,50,distance_NLOS,'2NAPDD')
 
             xpd_LOS = np.array(average_LOS_H) - np.array(average_LOS_V)
             xpd_NLOS = np.array(average_NLOS_H) - np.array(average_NLOS_V)
@@ -229,8 +242,8 @@ def distance_plots(CSVfilesgroups, path1, path2):
 
         else:
 
-            make_plot(average_LOS_H,average_LOS_V,120,50,distance_LOS,'3LAPDD')
-            make_plot(average_NLOS_H,average_NLOS_V,120,50,distance_NLOS,'3NAPDD')
+            make_plot(average_LOS_H,average_LOS_V,130,50,distance_LOS,'3LAPDD')
+            make_plot(average_NLOS_H,average_NLOS_V,130,50,distance_NLOS,'3NAPDD')
 
             xpd_LOS = np.array(average_LOS_H) - np.array(average_LOS_V)
             xpd_NLOS = np.array(average_NLOS_H) - np.array(average_NLOS_V)
