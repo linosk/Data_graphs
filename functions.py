@@ -202,7 +202,11 @@ def make_plot(y_axis_one, y_axis_two, maxy, miny, x_axis, type):
     #remove later
     #plt.title(f'{title_part}{freg}GHz, {con}')
     if (type[3] == 'P' and type[4] == 'D') or (type[3] == 'X' and type[4] == 'D'):
-        plt.xlabel('d [m]')
+        if type[1] == 'L':
+            plt.xlabel('$d_{LOS}$ [m]')
+        else:
+            plt.xlabel('$d_{NLOS}$ [m]')
+
     else:
         plt.xlabel('f [GHz]')
     plt.ylabel(f'{yaxis_part} [dB]')
