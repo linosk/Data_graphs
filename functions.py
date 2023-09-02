@@ -104,7 +104,7 @@ def get_title_mean_std(scenario,pol,dom):
 
 def make_plot(y_axis_one, y_axis_two, maxy, miny, x_axis, type):
     width = 12
-    height = 5
+    height = 5.5
     path = os.getcwd()
     index = path.find('/Files')
     path = path[:index]
